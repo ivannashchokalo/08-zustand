@@ -19,7 +19,8 @@ export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
   const { slug } = await params;
-  const tag = slug[0] === "all" ? "All notes" : slug[0];
+  const tag = slug[0] === "all" ? "all notes" : slug[0];
+  const tagUrl = slug[0] === "all" ? undefined : slug[0];
   const formattedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
 
   return {
@@ -29,7 +30,7 @@ export async function generateMetadata({
       type: "website",
       title: `${formattedTag} Notes`,
       description: `Browse ${formattedTag.toLowerCase()} notes in NoteHub. Stay organized and manage your tasks efficiently.`,
-      url: "",
+      url: `https://08-zustand-two-rosy.vercel.app/notes/filter/${tagUrl}`,
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

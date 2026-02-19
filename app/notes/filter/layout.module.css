@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 0 30px 30px;
+}
+
+.sidebar {
+  width: 200px;
+  padding-top: 16px;
+}
+
+.notes {
+  flex-grow: 1;
+}

@@ -5,9 +5,41 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import NotesClient from "./Notes.client";
+import { Metadata } from "next";
 
 interface NotesProps {
   params: Promise<{ slug: string[] }>;
+}
+
+interface MetadataProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: MetadataProps): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = slug[0] === "all" ? "All notes" : slug[0];
+  const formattedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
+
+  return {
+    title: `${formattedTag} Notes`,
+    description: `Browse ${formattedTag.toLowerCase()} notes in NoteHub. Stay organized and manage your tasks efficiently.`,
+    openGraph: {
+      type: "website",
+      title: `${formattedTag} Notes`,
+      description: `Browse ${formattedTag.toLowerCase()} notes in NoteHub. Stay organized and manage your tasks efficiently.`,
+      url: "",
+      images: [
+        {
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+          width: 1200,
+          height: 630,
+          alt: `${formattedTag} Notes - NoteHub`,
+        },
+      ],
+    },
+  };
 }
 
 export default async function Notes({ params }: NotesProps) {

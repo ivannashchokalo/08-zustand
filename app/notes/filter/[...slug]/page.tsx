@@ -19,7 +19,7 @@ export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
   const { slug } = await params;
-  const tag = slug[0] === "all" ? "all notes" : slug[0];
+  const tag = slug[0] === "all" ? "all" : slug[0];
   const tagUrl = slug[0] === "all" ? undefined : slug[0];
   const formattedTag = tag.charAt(0).toUpperCase() + tag.slice(1);
 

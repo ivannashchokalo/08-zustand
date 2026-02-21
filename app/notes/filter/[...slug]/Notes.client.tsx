@@ -7,8 +7,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import { useDebouncedCallback } from "use-debounce";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 
 interface NotesClientProps {
   tag?: string;
@@ -17,7 +16,7 @@ interface NotesClientProps {
 export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const handleDebouncedSearch = useDebouncedCallback((value) => {
     setSearch(value);
     setPage(1);
@@ -36,8 +35,6 @@ export default function NotesClient({ tag }: NotesClientProps) {
     placeholderData: keepPreviousData,
   });
 
-  const closeModal = () => setIsModalOpen(false);
-
   return (
     <>
       <div className={css.toolbar}>
@@ -55,16 +52,9 @@ export default function NotesClient({ tag }: NotesClientProps) {
           />
         )}
 
-        <button className={css.button} onClick={() => setIsModalOpen(true)}>
-          Create note +
-        </button>
+        <Link href="/notes/action/create">Create note +</Link>
       </div>
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && (
-        <Modal onCloseModal={closeModal}>
-          <NoteForm onCloseModal={closeModal} />
-        </Modal>
-      )}
     </>
   );
 }

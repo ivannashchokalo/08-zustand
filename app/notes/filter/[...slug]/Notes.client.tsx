@@ -31,7 +31,7 @@ export default function NotesClient({ tag }: NotesClientProps) {
         tag,
         perPage: 12,
       }),
-    refetchOnMount: false,
+    // refetchOnMount: false,
     placeholderData: keepPreviousData,
   });
 

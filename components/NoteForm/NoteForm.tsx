@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import css from "./NoteForm.module.css";
 import { useId } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { FormValues } from "@/types/note";
+import { FormValues, NoteTag } from "@/types/note";
 import { createNote } from "@/lib/api";
 import { useNoteStore } from "@/lib/store/noteStore";
 
@@ -59,7 +59,9 @@ export default function NoteForm() {
       <div className={css.formGroup}>
         <label htmlFor={`${fieldId}-tag`}>Tag</label>
         <select
-          onChange={(e) => setDraft({ ...draft, tag: e.target.value })}
+          onChange={(e) =>
+            setDraft({ ...draft, tag: e.target.value as NoteTag })
+          }
           value={draft.tag}
           id={`${fieldId}-tag`}
           name="tag"

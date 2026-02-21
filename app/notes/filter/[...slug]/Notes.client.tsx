@@ -15,15 +15,15 @@ interface NotesClientProps {
 
 export default function NotesClient({ tag }: NotesClientProps) {
   const [page, setPage] = useState(1);
+  const [inputValue, setInputValue] = useState("");
   const [search, setSearch] = useState("");
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const handleDebouncedSearch = useDebouncedCallback((value) => {
     setSearch(value);
     setPage(1);
   }, 500);
 
   const { data } = useQuery({
-    queryKey: ["notes", { page }, { search }, tag],
+    queryKey: ["notes", { page, search, tag }],
     queryFn: () =>
       fetchNotes({
         page,
@@ -38,8 +38,9 @@ export default function NotesClient({ tag }: NotesClientProps) {
     <>
       <div className={css.toolbar}>
         <SearchBox
-          value={search}
+          value={inputValue}
           onChange={(value) => {
+            setInputValue(value);
             handleDebouncedSearch(value);
           }}
         />
